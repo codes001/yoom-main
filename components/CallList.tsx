@@ -1,10 +1,11 @@
+'use client';
+import { useGetCalls } from '@/hooks/useGetCall';
 
+const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
+  const { endedCalls, upcomingCalls, callRecordings, isLoading } =
+    useGetCalls();
 
+  return <div>CallList</div>;
+};
 
-const CallList = () => {
-  return (
-    <div>CallList</div>
-  )
-}
-
-export default CallList 
+export default CallList;
