@@ -5,6 +5,7 @@ import { Call, CallRecording } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import MeetingCard from './MeetingCard';
+import Loader from './Loader';
 
 const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const { endedCalls, upcomingCalls, callRecordings, isLoading } =
@@ -13,6 +14,10 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const [recordings, setRecordings] = useState<CallRecording[]>([]);
   const router = useRouter();
 
+  //Show Loader when the meeting data is still being fetched
+  if (isLoading) return <Loader />;
+
+  const;
   const getCalls = () => {
     switch (type) {
       case 'ended':
