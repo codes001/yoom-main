@@ -156,6 +156,21 @@ const MeetingTypeList = () => {
         buttonText='Start Now'
         handleClick={createMeeting}
       />
+
+      <MeetingModal
+        isOpen={meetingState === 'isJoiningMeeting'}
+        onClose={() => setMeetingState(undefined)}
+        title='Paste meeting link here '
+        className='text-center'
+        buttonText='Join meeting'
+        handleClick={() => router.push(values.link)}
+      >
+        <input
+          type='text'
+          placeholder='Meeting link...'
+          className='border-none bg-dark-3 p-2 rounded focus-visible:ring-0 focus-visible:ring-offset-0'
+        />
+      </MeetingModal>
     </section>
   );
 };
