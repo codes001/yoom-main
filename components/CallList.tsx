@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MeetingCard from './MeetingCard';
 import Loader from './Loader';
+import { useToast } from './ui/use-toast';
 
 const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const { endedCalls, upcomingCalls, callRecordings, isLoading } =
@@ -50,17 +51,23 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
 
   const calls = getCalls();
   const noCallMessage = getNoCallsMessage();
-
+  const { toast } = useToast();
   useEffect(() => {
     const getRecordings = async () => {
-      const callData = await Promise.all(
-        callRecordings.map((meeting) => meeting.queryRecordings())
-      );
+      try {
+        const callData = await Promise.all(
+          callRecordings.map((meeting) => meeting.queryRecordings())
+        );
 
-      const recordings = callData
-        .filter((call) => call.recordings.length > 0)
-        .flatMap((call) => call.recordings);
-      setRecordings(recordings);
+        const recordings = callData
+          .filter((call) => call.recordings.length > 0)
+          .flatMap((call) => call.recordings);
+        setRecordings(recordings);
+      } catch (error) {
+        toast({
+          title: `${error}`,
+        });
+      }
     };
 
     if (type === 'recordings') getRecordings();
