@@ -17,8 +17,6 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
 
   //Show Loader when the meeting data is still being fetched
   if (isLoading) return <Loader />;
-
-  const;
   const getCalls = () => {
     switch (type) {
       case 'ended':
