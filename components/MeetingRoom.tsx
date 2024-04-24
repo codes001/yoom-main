@@ -19,7 +19,7 @@ import {
 import React, { useState } from 'react';
 import { LayoutList, User } from 'lucide-react';
 import { Button } from './ui/button';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import EndCallButton from './EndCallButton';
 import Loader from './Loader';
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
@@ -42,6 +42,7 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition='right' />;
     }
   };
+  const router = useRouter();
   return (
     <main className='relative h-screen w-full overflow-hidden pt-4 text-white'>
       <div className='flex size-full relative items-center justify-center'>
@@ -58,7 +59,11 @@ const MeetingRoom = () => {
         </div>
       </div>
       <div className='fixed bottom-5 flex flex-wrap mx-auto w-[95%] sm:w-full items-center justify-center gap-5'>
-        <CallControls />
+        <CallControls
+          onLeave={() => {
+            router.push('/');
+          }}
+        />
 
         <DropdownMenu>
           <div className='flex items-center'>
