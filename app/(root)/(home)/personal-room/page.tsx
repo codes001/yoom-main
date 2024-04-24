@@ -1,4 +1,6 @@
 'use client';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import { useUser } from '@clerk/nextjs';
 import React from 'react';
 
@@ -17,6 +19,10 @@ const PersonalRoom = () => {
   const meetingID = user?.id;
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingID}?personal='true`;
 
+  const { toast } = useToast();
+
+  const startMeeting = () => {};
+
   return (
     <section className='flex  text-white size-full flex-col gap-10'>
       <h1 className='text-2xl font-bold'>Personal Meeting Room</h1>
@@ -27,6 +33,25 @@ const PersonalRoom = () => {
         <Table title='Meeting ID:' description={meetingID!} />
 
         <Table title='Meeting Link:' description={meetingLink} />
+      </div>
+
+      <div className='flex gap-4'>
+        <Button className='bg-blue-1' onClick={startMeeting}>
+          Start Meeting
+        </Button>
+
+        <Button
+          className='bg-green-1'
+          onClick={() => {
+            navigator.clipboard.writeText(meetingLink);
+
+            toast({
+              title: 'Copied',
+            });
+          }}
+        >
+          Copy Link
+        </Button>
       </div>
     </section>
   );
