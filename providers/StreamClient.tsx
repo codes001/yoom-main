@@ -13,7 +13,7 @@ const StreamClientProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!isLoaded || !user) return;
-    if (!apiKey) throw new Error('API not found');
+    if (!apiKey) throw new Error('API Key not found');
 
     const client = new StreamVideoClient({
       apiKey,
